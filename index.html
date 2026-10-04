@@ -739,13 +739,43 @@
   <script>
     // GOOGLE APPS SCRIPT WEB APP URL
     const API_URL = 'https://script.google.com/macros/s/AKfycbxBg8_JuXzKp9fzx4jxic-Igv-8nu2Tv-L0S1WkgR0qb6YGEMnlEMmXVrJM0R1CLcP-/exec';
-    let globalUnitsList = [];
+let globalUnitsList = [];
 
-    document.addEventListener('DOMContentLoaded', function() {
-      if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        showMainApp();
-      }
-    });
+    // Call fetchUnits when the main app loads
+    function showMainApp() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainAppContainer').classList.remove('d-none');
+      const name = sessionStorage.getItem('userName') || 'Administrator';
+      document.getElementById('currentUserDisplay').innerText = name;
+      document.getElementById('userAvatarInitials').innerText = name.substring(0, 2).toUpperCase();
+      initNavigation();
+      fetchUnits(); // <--- Fetches units from Google Sheets
+      loadDashboard();
+    }
+
+    // Fetch units from Google Apps Script Web App URL
+    function fetchUnits() {
+      fetch(API_URL + '?action=getUnits')
+        .then(res => res.json())
+        .then(res => {
+          if (res.success && res.data) {
+            globalUnitsList = res.data;
+            populateUnitDropdowns();
+          }
+        })
+        .catch(err => console.error('Failed to fetch units', err));
+    }
+
+    // Populate all elements with class 'unit-dropdown'
+    function populateUnitDropdowns() {
+      const selects = document.querySelectorAll('.unit-dropdown');
+      selects.forEach(sel => {
+        sel.innerHTML = '<option value="">Select Unit</option>';
+        globalUnitsList.forEach(u => {
+          sel.innerHTML += `<option value="${u}">${u}</option>`;
+        });
+      });
+    }
 
     function showToast(message) {
       document.getElementById('toastMessage').innerText = message || 'Data saved successfully!';
