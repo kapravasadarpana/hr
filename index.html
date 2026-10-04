@@ -8,12 +8,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; min-height: 100vh; background-color: #f4f6f9; color: #333; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; background-color: #f1f5f9; color: #1e293b; overflow-x: hidden; }
     
     /* GLASSMORPHISM LOGIN PAGE */
     #loginScreen {
       min-height: 100vh;
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -21,11 +21,11 @@
     }
     .glass-card {
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
       color: #fff;
       width: 100%;
       max-width: 420px;
@@ -33,25 +33,34 @@
     }
     .glass-card .form-control {
       background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       color: #fff;
     }
     .glass-card .form-control::placeholder { color: rgba(255, 255, 255, 0.7); }
     .glass-card .form-control:focus { background: rgba(255, 255, 255, 0.3); color: #fff; border-color: #fff; box-shadow: none; }
 
+    /* TOP NAVBAR */
+    .navbar-top { background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: 70px; z-index: 1030; }
+
     /* SIDEBAR & LAYOUT */
-    #sidebar { min-height: 100vh; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); box-shadow: 2px 0 10px rgba(0,0,0,0.05); }
-    .nav-link { border-radius: 8px; margin-bottom: 4px; color: #94a3b8; font-weight: 500; transition: all 0.2s; }
-    .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
-    .nav-link.active { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%) !important; color: #fff !important; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+    #sidebar { min-height: calc(100vh - 70px); background: #0f172a; box-shadow: 2px 0 10px rgba(0,0,0,0.05); padding-top: 20px; }
+    .nav-link { border-radius: 8px; margin-bottom: 6px; color: #94a3b8; font-weight: 500; transition: all 0.2s; padding: 10px 15px; }
+    .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .nav-link.active { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important; color: #fff !important; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+    
     .app-view { display: none; }
     .app-view.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* CARDS & UI */
-    .stat-card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: transform 0.2s; }
-    .stat-card:hover { transform: translateY(-3px); }
-    .card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+    /* MODERN COLORFUL KPI CARDS */
+    .kpi-card { border: none; border-radius: 16px; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.2s; position: overflow; }
+    .kpi-card:hover { transform: translateY(-4px); }
+    .bg-gradient-indigo { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+    .bg-gradient-emerald { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .bg-gradient-cyan { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+    .bg-gradient-amber { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+
+    .card { border: none; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
     .table th { font-weight: 600; color: #475569; background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; }
   </style>
 </head>
@@ -62,238 +71,270 @@
     <div class="glass-card">
       <div class="text-center mb-4">
         <div class="bg-white bg-opacity-25 d-inline-flex p-3 rounded-circle mb-3 shadow-sm">
-          <i class="bi bi-building-fill-gear fs-1 text-white"></i>
+          <i class="bi bi-shield-lock-fill fs-1 text-white"></i>
         </div>
-        <h3 class="fw-bold mb-1">HR Portal</h3>
-        <p class="text-white-50 small">Secure Enterprise Management System</p>
+        <h3 class="fw-bold mb-1">HR Enterprise</h3>
+        <p class="text-white-50 small">Secure Management Suite</p>
       </div>
       <div id="loginError" class="alert alert-danger bg-danger bg-opacity-75 text-white border-0 d-none py-2 small mb-3"></div>
       <form onsubmit="handleLogin(event)">
         <div class="mb-3">
           <label class="form-label small fw-semibold">Username</label>
-          <input type="text" class="form-control" id="loginUsername" required placeholder="username">
+          <input type="text" class="form-control" id="loginUsername" required placeholder="admin">
         </div>
         <div class="mb-4">
           <label class="form-label small fw-semibold">Password</label>
-          <input type="password" class="form-control" id="loginPassword" required placeholder="password">
+          <input type="password" class="form-control" id="loginPassword" required placeholder="admin123">
         </div>
-        <button type="submit" class="btn btn-light w-100 fw-bold text-primary py-2 shadow-sm" id="loginBtn">Sign In to Dashboard</button>
+        <button type="submit" class="btn btn-light w-100 fw-bold text-indigo py-2 shadow-sm" id="loginBtn">Sign In to Dashboard</button>
       </form>
-      <div class="text-center mt-3 text-white-50 small">Please Contact Admin</div>
     </div>
   </div>
 
   <!-- MAIN APP CONTAINER -->
-  <div id="mainAppContainer" class="container-fluid d-none">
-    <div class="row">
-      <!-- Sidebar Navigation -->
-      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse p-3">
-        <div class="position-sticky">
-          <div class="text-center py-3 mb-2">
-            <i class="bi bi-building-fill-gear fs-2 text-primary"></i>
-            <h5 class="mt-2 mb-0 fw-bold text-white">HR Enterprise</h5>
-            <small class="text-muted">Management Suite</small>
-          </div>
-          <hr class="border-secondary opacity-25">
-          <ul class="nav flex-column" id="sidebarNav">
-            <li class="nav-item"><a href="#" class="nav-link active" data-page="Dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Employees"><i class="bi bi-people me-2"></i> Employee Master</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Transfers"><i class="bi bi-arrow-left-right me-2"></i> Transfers</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Leaves"><i class="bi bi-calendar-check me-2"></i> Leaves</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Joinings"><i class="bi bi-person-plus me-2"></i> New Joinings</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Users"><i class="bi bi-shield-lock me-2"></i> User Management</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Password"><i class="bi bi-key me-2"></i> Change Password</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" data-page="Settings"><i class="bi bi-gear me-2"></i> System Setup</a></li>
-          </ul>
+  <div id="mainAppContainer" class="d-none">
+    
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="navbar navbar-top px-4 fixed-top d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <div class="bg-indigo text-white p-2 rounded-3 me-3 d-flex align-items-center justify-content-center" style="background: #4f46e5; width: 40px; height: 40px;">
+          <i class="bi bi-building-fill fs-5"></i>
         </div>
-      </nav>
+        <h5 class="fw-bold mb-0 text-dark">HR Management Dashboard</h5>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-light bg-light border shadow-sm dropdown-toggle px-3 py-2 rounded-pill d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle text-indigo fs-5 me-2"></i> <span id="currentUserDisplay" class="fw-semibold">Admin</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item py-2" href="#" onclick="switchPage('Password')"><i class="bi bi-key me-2 text-muted"></i> Change Password</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+        </ul>
+      </div>
+    </nav>
 
-      <!-- Main Content Area -->
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-          <h1 class="h3 fw-bold text-dark" id="pageTitle">Dashboard</h1>
-          <div class="dropdown">
-            <button class="btn btn-sm btn-white bg-white border shadow-sm dropdown-toggle px-3 py-2 rounded-pill" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle text-primary me-1"></i> <span id="currentUserDisplay" class="fw-semibold">Admin</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item py-2" href="#" onclick="switchPage('Password')"><i class="bi bi-key me-2 text-muted"></i> Change Password</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+    <!-- CONTENT LAYOUT WITH SIDEBAR -->
+    <div class="container-fluid" style="margin-top: 70px;">
+      <div class="row">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse px-3">
+          <div class="position-sticky">
+            <ul class="nav flex-column" id="sidebarNav">
+              <li class="nav-item"><a href="#" class="nav-link active" data-page="Dashboard"><i class="bi bi-grid-1x2-fill me-2"></i> Dashboard</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Employees"><i class="bi bi-people-fill me-2"></i> Employee Master</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="InactiveEmployees"><i class="bi bi-person-dash-fill me-2"></i> Inactive Employees</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Transfers"><i class="bi bi-arrow-left-right me-2"></i> Transfers</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Leaves"><i class="bi bi-calendar-check-fill me-2"></i> Leaves</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Joinings"><i class="bi bi-person-plus-fill me-2"></i> New Joinings</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Users"><i class="bi bi-shield-lock-fill me-2"></i> User Management</a></li>
+              <li class="nav-item"><a href="#" class="nav-link" data-page="Password"><i class="bi bi-key-fill me-2"></i> Change Password</a></li>
             </ul>
           </div>
-        </div>
+        </nav>
 
-        <!-- VIEWS -->
-        <div id="app-view-container">
-
-          <!-- 1. DASHBOARD -->
-          <div id="view-Dashboard" class="app-view active">
-            <div class="row mb-4">
-              <div class="col-xl-3 col-md-6 mb-3">
-                <div class="card stat-card border-start border-primary border-4 p-3 bg-white">
-                  <div class="text-muted text-uppercase small fw-bold">Total Employees</div>
-                  <div class="h3 mb-0 fw-bold text-primary mt-2" id="dashTotalEmployees">-</div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6 mb-3">
-                <div class="card stat-card border-start border-success border-4 p-3 bg-white">
-                  <div class="text-muted text-uppercase small fw-bold">Active Transfers</div>
-                  <div class="h3 mb-0 fw-bold text-success mt-2" id="dashActiveTransfers">-</div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6 mb-3">
-                <div class="card stat-card border-start border-info border-4 p-3 bg-white">
-                  <div class="text-muted text-uppercase small fw-bold">Pending Leaves</div>
-                  <div class="h3 mb-0 fw-bold text-info mt-2" id="dashPendingLeaves">-</div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6 mb-3">
-                <div class="card stat-card border-start border-warning border-4 p-3 bg-white">
-                  <div class="text-muted text-uppercase small fw-bold">New Joinings</div>
-                  <div class="h3 mb-0 fw-bold text-warning mt-2" id="dashNewJoinings">-</div>
-                </div>
-              </div>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-header bg-white py-3">
-                <h6 class="m-0 fw-bold text-dark"><i class="bi bi-clock-history text-primary me-2"></i> Recent Employee Records</h6>
-              </div>
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Emp ID</th><th>Name</th><th>Unit</th><th>Designation</th><th>Joining Date</th></tr></thead>
-                  <tbody id="dashEmployeesTbody"><tr><td colspan="5" class="text-center py-4 text-muted">Loading...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
+        <!-- Main Content Area -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-3 mb-4 border-bottom">
+            <h1 class="h3 fw-bold text-dark" id="pageTitle">Dashboard</h1>
           </div>
 
-          <!-- 2. EMPLOYEES -->
-          <div id="view-Employees" class="app-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h5 class="fw-bold mb-0">Employee Master Directory</h5>
-              <button class="btn btn-primary btn-sm px-3 shadow-sm" onclick="openEmployeeModal()"><i class="bi bi-person-plus me-1"></i> Add Employee</button>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Emp ID</th><th>Name</th><th>Unit</th><th>Designation</th><th>Joining Date</th></tr></thead>
-                  <tbody id="employeesTbody"><tr><td colspan="5" class="text-center py-4 text-muted">Loading...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          <!-- VIEWS -->
+          <div id="app-view-container">
 
-          <!-- 3. TRANSFERS -->
-          <div id="view-Transfers" class="app-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h5 class="fw-bold mb-0">Employee Transfers</h5>
-              <button class="btn btn-primary btn-sm px-3 shadow-sm" onclick="openTransferModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Transfer ID</th><th>Employee Name</th><th>Designation</th><th>From Unit</th><th>To Unit</th><th>Order No</th><th>Order Date</th><th>Joined Date</th><th>Status</th></tr></thead>
-                  <tbody id="transfersTbody"><tr><td colspan="9" class="text-center py-4 text-muted">Loading transfers...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. LEAVES -->
-          <div id="view-Leaves" class="app-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h5 class="fw-bold mb-0">Leave Management</h5>
-              <button class="btn btn-primary btn-sm px-3 shadow-sm" onclick="openLeaveModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Leave ID</th><th>Employee Name</th><th>Designation</th><th>From Date</th><th>To Date</th><th>Order No</th><th>Order Date</th><th>Reason</th><th>Status</th></tr></thead>
-                  <tbody id="leavesTbody"><tr><td colspan="9" class="text-center py-4 text-muted">Loading leaves...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5. JOININGS -->
-          <div id="view-Joinings" class="app-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h5 class="fw-bold mb-0">New Joinings</h5>
-              <button class="btn btn-primary btn-sm px-3 shadow-sm" onclick="openJoiningModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Joining ID</th><th>Employee Name</th><th>Designation</th><th>Unit</th><th>Order No</th><th>Order Date</th><th>Joined Date</th></tr></thead>
-                  <tbody id="joiningsTbody"><tr><td colspan="7" class="text-center py-4 text-muted">Loading joinings...</td></tr></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6. USERS -->
-          <div id="view-Users" class="app-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h5 class="fw-bold mb-0">User Management</h5>
-            </div>
-            <div class="card shadow-sm">
-              <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead><tr><th>Username</th><th>Role</th><th>Status</th></tr></thead>
-                  <tbody id="usersTbody">
-                    <tr><td>admin</td><td>Administrator</td><td><span class="badge bg-success">Active</span></td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- 7. PASSWORD -->
-          <div id="view-Password" class="app-view">
-            <div class="row justify-content-center">
-              <div class="col-md-6">
-                <div class="card shadow-sm p-4">
-                  <h5 class="fw-bold mb-3"><i class="bi bi-key text-primary me-2"></i> Change Password</h5>
-                  <form onsubmit="handlePasswordChange(event)">
-                    <div class="mb-3">
-                      <label class="form-label">Current Password</label>
-                      <input type="password" class="form-control" id="currPass" required>
+            <!-- 1. DASHBOARD -->
+            <div id="view-Dashboard" class="app-view active">
+              <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-3">
+                  <div class="card kpi-card bg-gradient-indigo p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="text-white-50 text-uppercase small fw-bold">Active Employees</div>
+                        <div class="h2 mb-0 fw-bold mt-2" id="dashTotalEmployees">-</div>
+                      </div>
+                      <div class="bg-white bg-opacity-25 p-3 rounded-circle"><i class="bi bi-people fs-3"></i></div>
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">New Password</label>
-                      <input type="password" class="form-control" id="newPass" required>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                  <div class="card kpi-card bg-gradient-emerald p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="text-white-50 text-uppercase small fw-bold">Active Transfers</div>
+                        <div class="h2 mb-0 fw-bold mt-2" id="dashActiveTransfers">-</div>
+                      </div>
+                      <div class="bg-white bg-opacity-25 p-3 rounded-circle"><i class="bi bi-arrow-left-right fs-3"></i></div>
                     </div>
-                    <div class="mb-3">
-                      <label class="form-label">Confirm New Password</label>
-                      <input type="password" class="form-control" id="confirmPass" required>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                  <div class="card kpi-card bg-gradient-cyan p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="text-white-50 text-uppercase small fw-bold">Pending Leaves</div>
+                        <div class="h2 mb-0 fw-bold mt-2" id="dashPendingLeaves">-</div>
+                      </div>
+                      <div class="bg-white bg-opacity-25 p-3 rounded-circle"><i class="bi bi-calendar-event fs-3"></i></div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 fw-semibold" id="changePassBtn">Update Password</button>
-                  </form>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-3">
+                  <div class="card kpi-card bg-gradient-amber p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <div class="text-white-50 text-uppercase small fw-bold">Pending Joinings</div>
+                        <div class="h2 mb-0 fw-bold mt-2" id="dashNewJoinings">-</div>
+                      </div>
+                      <div class="bg-white bg-opacity-25 p-3 rounded-circle"><i class="bi bi-person-plus fs-3"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                  <h6 class="m-0 fw-bold text-dark"><i class="bi bi-clock-history text-indigo me-2"></i> Recent Employee Records</h6>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Emp ID</th><th>Name</th><th>Unit</th><th>Designation</th><th>Joining Date</th><th>Status</th></tr></thead>
+                    <tbody id="dashEmployeesTbody"><tr><td colspan="6" class="text-center py-4 text-muted">Loading...</td></tr></tbody>
+                  </table>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- 8. SETTINGS -->
-          <div id="view-Settings" class="app-view">
-            <h5 class="fw-bold mb-3">System Settings & Setup</h5>
-            <div class="card shadow-sm p-4">
-              <p class="text-muted">Initialize or repair database sheets and default folder structures.</p>
-              <button class="btn btn-success fw-semibold" onclick="runSystemSetup()"><i class="bi bi-database-gear me-1"></i> Run System Setup</button>
+            <!-- 2. EMPLOYEES -->
+            <div id="view-Employees" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Active Employee Master</h5>
+                <button class="btn btn-primary btn-sm px-3 shadow-sm bg-indigo border-0" onclick="openEmployeeModal()"><i class="bi bi-person-plus me-1"></i> Add Employee</button>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Emp ID</th><th>Name</th><th>Unit</th><th>Designation</th><th>Joining Date</th><th>Action</th></tr></thead>
+                    <tbody id="employeesTbody"><tr><td colspan="6" class="text-center py-4 text-muted">Loading...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
 
-        </div>
-      </main>
+            <!-- 3. INACTIVE EMPLOYEES -->
+            <div id="view-InactiveEmployees" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Inactive / Resigned / Terminated Employees</h5>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Emp ID</th><th>Name</th><th>Unit</th><th>Designation</th><th>Status</th><th>Reason / Remarks</th></tr></thead>
+                    <tbody id="inactiveEmployeesTbody"><tr><td colspan="6" class="text-center py-4 text-muted">Loading inactive records...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. TRANSFERS -->
+            <div id="view-Transfers" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Employee Transfers</h5>
+                <button class="btn btn-primary btn-sm px-3 shadow-sm bg-indigo border-0" onclick="openTransferModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Transfer ID</th><th>Employee Name</th><th>Designation</th><th>From Unit</th><th>To Unit</th><th>Order No</th><th>Order Date</th><th>Joined Date</th><th>Status</th></tr></thead>
+                    <tbody id="transfersTbody"><tr><td colspan="9" class="text-center py-4 text-muted">Loading transfers...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. LEAVES -->
+            <div id="view-Leaves" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Leave Management</h5>
+                <button class="btn btn-primary btn-sm px-3 shadow-sm bg-indigo border-0" onclick="openLeaveModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Leave ID</th><th>Employee Name</th><th>Designation</th><th>From Date</th><th>To Date</th><th>Order No</th><th>Order Date</th><th>Reason</th><th>Status</th></tr></thead>
+                    <tbody id="leavesTbody"><tr><td colspan="9" class="text-center py-4 text-muted">Loading leaves...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. JOININGS -->
+            <div id="view-Joinings" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">New Joinings (Admin Approval Required)</h5>
+                <button class="btn btn-primary btn-sm px-3 shadow-sm bg-indigo border-0" onclick="openJoiningModal()"><i class="bi bi-plus-lg me-1"></i> Add Record</button>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Joining ID</th><th>Employee Name</th><th>Designation</th><th>Unit</th><th>Order No</th><th>Order Date</th><th>Joined Date</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody id="joiningsTbody"><tr><td colspan="9" class="text-center py-4 text-muted">Loading joinings...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. USERS -->
+            <div id="view-Users" class="app-view">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">User Management</h5>
+                <button class="btn btn-primary btn-sm px-3 shadow-sm bg-indigo border-0" onclick="openUserModal()"><i class="bi bi-person-plus me-1"></i> Add User</button>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead><tr><th>Username</th><th>Role</th><th>Status</th></tr></thead>
+                    <tbody id="usersTbody"><tr><td colspan="3" class="text-center py-4 text-muted">Loading users...</td></tr></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. PASSWORD -->
+            <div id="view-Password" class="app-view">
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="card shadow-sm p-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-key text-indigo me-2"></i> Change Password</h5>
+                    <form onsubmit="handlePasswordChange(event)">
+                      <div class="mb-3">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currPass" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPass" required>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmPass" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100 fw-semibold bg-indigo border-0" id="changePassBtn">Update Password</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
     </div>
   </div>
 
   <!-- TOAST NOTIFICATION -->
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body" id="toastMessage">Data saved successfully!</div>
+        <div class="toast-body fw-semibold" id="toastMessage">Data saved successfully!</div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
@@ -315,7 +356,28 @@
             <div class="mb-3"><label class="form-label">Joining Date</label><input type="date" class="form-control" id="empJoiningDate"></div>
           </form>
         </div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm" id="saveEmpBtn" onclick="saveEmployeeRecord()">Save Record</button></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm bg-indigo border-0" id="saveEmpBtn" onclick="saveEmployeeRecord()">Save Record</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inactivate Modal -->
+  <div class="modal fade" id="inactivateModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title fw-bold">Inactivate Employee</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <input type="hidden" id="inactRecordID">
+          <div class="mb-3">
+            <label class="form-label">Reason / Status</label>
+            <select class="form-select" id="inactStatusReason">
+              <option value="Resigned">Resigned</option>
+              <option value="Terminated">Terminated from Job</option>
+              <option value="Left Job">Left Job</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger btn-sm" onclick="confirmInactivateEmployee()">Confirm Inactive</button></div>
       </div>
     </div>
   </div>
@@ -336,7 +398,7 @@
             <div class="mb-3"><label class="form-label">Joined Date</label><input type="date" class="form-control" id="trfJoinedDate"></div>
           </form>
         </div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm" id="saveTrfBtn" onclick="saveTransferRecord()">Save Record</button></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm bg-indigo border-0" id="saveTrfBtn" onclick="saveTransferRecord()">Save Record</button></div>
       </div>
     </div>
   </div>
@@ -357,7 +419,7 @@
             <div class="mb-3"><label class="form-label">Reason for Leave</label><textarea class="form-control" id="levReason" rows="2"></textarea></div>
           </form>
         </div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm" id="saveLevBtn" onclick="saveLeaveRecord()">Save Record</button></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm bg-indigo border-0" id="saveLevBtn" onclick="saveLeaveRecord()">Save Record</button></div>
       </div>
     </div>
   </div>
@@ -377,7 +439,30 @@
             <div class="mb-3"><label class="form-label">Joined Date</label><input type="date" class="form-control" id="jonJoinedDate"></div>
           </form>
         </div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm" id="saveJonBtn" onclick="saveJoiningRecord()">Save Record</button></div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm bg-indigo border-0" id="saveJonBtn" onclick="saveJoiningRecord()">Save Record</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Modal -->
+  <div class="modal fade" id="userModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title fw-bold">Add New System User</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <form id="userForm">
+            <div class="mb-3"><label class="form-label">Username</label><input type="text" class="form-control" id="newUsername" required></div>
+            <div class="mb-3"><label class="form-label">Password</label><input type="password" class="form-control" id="newUserPassword" required></div>
+            <div class="mb-3"><label class="form-label">Role</label>
+              <select class="form-select" id="newUserRole">
+                <option value="Administrator">Administrator</option>
+                <option value="HR Staff">HR Staff</option>
+                <option value="Viewer">Viewer</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary btn-sm bg-indigo border-0" onclick="saveNewUser()">Save User</button></div>
       </div>
     </div>
   </div>
@@ -385,7 +470,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // REPLACE WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxBg8_JuXzKp9fzx4jxic-Igv-8nu2Tv-L0S1WkgR0qb6YGEMnlEMmXVrJM0R1CLcP-/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbw1bByuph_BqIDZ_5LH89ol0loSo4SZ_lzUVDTaG-F64oE3x1-8BdJeiyr-lKjwpCid/exec';
 
     document.addEventListener('DOMContentLoaded', function() {
       if (sessionStorage.getItem('isLoggedIn') === 'true') {
@@ -461,16 +546,28 @@
     }
 
     function switchPage(pageName) {
-      document.getElementById('pageTitle').innerText = pageName === 'Password' ? 'Change Password' : (pageName === 'Users' ? 'User Management' : pageName);
+      var titles = {
+        Dashboard: 'Dashboard',
+        Employees: 'Active Employee Master',
+        InactiveEmployees: 'Inactive / Resigned Employees',
+        Transfers: 'Employee Transfers',
+        Leaves: 'Leave Management',
+        Joinings: 'New Joinings',
+        Users: 'User Management',
+        Password: 'Change Password'
+      };
+      document.getElementById('pageTitle').innerText = titles[pageName] || pageName;
       document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
       var target = document.getElementById('view-' + pageName);
       if (target) target.classList.add('active');
 
       if (pageName === 'Dashboard') loadDashboard();
       else if (pageName === 'Employees') loadEmployees();
+      else if (pageName === 'InactiveEmployees') loadInactiveEmployees();
       else if (pageName === 'Transfers') loadTransfers();
       else if (pageName === 'Leaves') loadLeaves();
       else if (pageName === 'Joinings') loadJoinings();
+      else if (pageName === 'Users') loadUsers();
     }
 
     function loadDashboard() {
@@ -486,11 +583,11 @@
             var tbody = document.getElementById('dashEmployeesTbody');
             tbody.innerHTML = '';
             if (!res.data.recentEmployees || res.data.recentEmployees.length === 0) {
-              tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No records found.</td></tr>';
+              tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No records found.</td></tr>';
               return;
             }
             res.data.recentEmployees.forEach(emp => {
-              tbody.innerHTML += `<tr><td>${emp.EmployeeID||''}</td><td>${emp.EmployeeName||''}</td><td>${emp.Unit||''}</td><td>${emp.Designation||''}</td><td>${emp.JoiningDate||''}</td></tr>`;
+              tbody.innerHTML += `<tr><td>${emp.EmployeeID||''}</td><td>${emp.EmployeeName||''}</td><td>${emp.Unit||''}</td><td>${emp.Designation||''}</td><td>${emp.JoiningDate||''}</td><td><span class="badge bg-success">Active</span></td></tr>`;
             });
           }
         })
@@ -504,11 +601,28 @@
           var tbody = document.getElementById('employeesTbody');
           tbody.innerHTML = '';
           if (!res.success || !res.data || res.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No employee records found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No employee records found.</td></tr>';
             return;
           }
           res.data.forEach(emp => {
-            tbody.innerHTML += `<tr><td>${emp.EmployeeID||''}</td><td>${emp.EmployeeName||''}</td><td>${emp.Unit||''}</td><td>${emp.Designation||''}</td><td>${emp.JoiningDate||''}</td></tr>`;
+            tbody.innerHTML += `<tr><td>${emp.EmployeeID||''}</td><td>${emp.EmployeeName||''}</td><td>${emp.Unit||''}</td><td>${emp.Designation||''}</td><td>${emp.JoiningDate||''}</td><td><button class="btn btn-outline-danger btn-sm" onclick="openInactivateModal('${emp.RecordID}')"><i class="bi bi-person-dash"></i> Inactivate</button></td></tr>`;
+          });
+        })
+        .catch(err => console.error(err));
+    }
+
+    function loadInactiveEmployees() {
+      fetch(API_URL + '?action=getInactiveEmployees')
+        .then(res => res.json())
+        .then(res => {
+          var tbody = document.getElementById('inactiveEmployeesTbody');
+          tbody.innerHTML = '';
+          if (!res.success || !res.data || res.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No inactive employees found.</td></tr>';
+            return;
+          }
+          res.data.forEach(emp => {
+            tbody.innerHTML += `<tr><td>${emp.EmployeeID||''}</td><td>${emp.EmployeeName||''}</td><td>${emp.Unit||''}</td><td>${emp.Designation||''}</td><td><span class="badge bg-danger">${emp.Status||'Inactive'}</span></td><td>${emp.Remarks||'-'}</td></tr>`;
           });
         })
         .catch(err => console.error(err));
@@ -555,26 +669,79 @@
           var tbody = document.getElementById('joiningsTbody');
           tbody.innerHTML = '';
           if (!res.success || !res.data || res.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No joining records found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">No joining records found.</td></tr>';
             return;
           }
           res.data.forEach(j => {
-            tbody.innerHTML += `<tr><td>${j.JoiningID||''}</td><td>${j.EmployeeName||''}</td><td>${j.Designation||''}</td><td>${j.Unit||''}</td><td>${j.OrderNo||''}</td><td>${j.OrderDate||''}</td><td>${j.JoinedDate||''}</td></tr>`;
+            var statusBadge = j.Status === 'Approved' ? '<span class="badge bg-success">Approved</span>' : '<span class="badge bg-warning text-dark">Pending</span>';
+            var actionBtn = j.Status === 'Approved' ? '-' : `<button class="btn btn-success btn-sm" onclick="approveJoiningRecord('${j.JoiningID}')"><i class="bi bi-check-lg"></i> Approve</button>`;
+            tbody.innerHTML += `<tr><td>${j.JoiningID||''}</td><td>${j.EmployeeName||''}</td><td>${j.Designation||''}</td><td>${j.Unit||''}</td><td>${j.OrderNo||''}</td><td>${j.OrderDate||''}</td><td>${j.JoinedDate||''}</td><td>${statusBadge}</td><td>${actionBtn}</td></tr>`;
           });
         })
         .catch(err => console.error(err));
     }
 
-    // Modal Triggers
+    function loadUsers() {
+      fetch(API_URL + '?action=getUsers')
+        .then(res => res.json())
+        .then(res => {
+          var tbody = document.getElementById('usersTbody');
+          tbody.innerHTML = '';
+          if (!res.success || !res.data || res.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center text-muted">No users found.</td></tr>';
+            return;
+          }
+          res.data.forEach(u => {
+            tbody.innerHTML += `<tr><td class="fw-semibold">${u.Username||''}</td><td>${u.Role||''}</td><td><span class="badge bg-success">${u.Status||'Active'}</span></td></tr>`;
+          });
+        })
+        .catch(err => console.error(err));
+    }
+
+    // Modal triggers & actions
     function openEmployeeModal() { document.getElementById('employeeForm').reset(); document.getElementById('empRecordID').value = ''; new bootstrap.Modal(document.getElementById('employeeModal')).show(); }
     function openTransferModal() { document.getElementById('transferForm').reset(); new bootstrap.Modal(document.getElementById('transferModal')).show(); }
     function openLeaveModal() { document.getElementById('leaveForm').reset(); new bootstrap.Modal(document.getElementById('leaveModal')).show(); }
     function openJoiningModal() { document.getElementById('joiningForm').reset(); new bootstrap.Modal(document.getElementById('joiningModal')).show(); }
+    function openUserModal() { document.getElementById('userForm').reset(); new bootstrap.Modal(document.getElementById('userModal')).show(); }
+    
+    function openInactivateModal(recordId) {
+      document.getElementById('inactRecordID').value = recordId;
+      new bootstrap.Modal(document.getElementById('inactivateModal')).show();
+    }
 
-    // Save Functions with Success Notifications
+    function confirmInactivateEmployee() {
+      var recordId = document.getElementById('inactRecordID').value;
+      var reason = document.getElementById('inactStatusReason').value;
+      fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'updateEmployeeStatus', data: { RecordID: recordId, Status: reason, Reason: reason } })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          bootstrap.Modal.getInstance(document.getElementById('inactivateModal')).hide();
+          showToast('Employee successfully moved to inactive records!');
+          loadEmployees(); loadDashboard();
+        } else { alert('Error: ' + res.message); }
+      });
+    }
+
+    function approveJoiningRecord(joiningId) {
+      fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'approveJoining', joiningId: joiningId })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          showToast(res.message);
+          loadJoinings(); loadDashboard();
+        } else { alert('Error: ' + res.message); }
+      });
+    }
+
     function saveEmployeeRecord() {
-      var btn = document.getElementById('saveEmpBtn');
-      btn.disabled = true; btn.innerText = 'Saving...';
       var data = {
         RecordID: document.getElementById('empRecordID').value,
         EmployeeID: document.getElementById('empEmployeeID').value,
@@ -585,13 +752,12 @@
       };
       fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'saveEmployee', data: data }) })
       .then(res => res.json()).then(res => {
-        btn.disabled = false; btn.innerText = 'Save Record';
         if (res.success) {
           bootstrap.Modal.getInstance(document.getElementById('employeeModal')).hide();
           showToast('Data saved successfully!');
           loadEmployees(); loadDashboard();
         } else { alert('Error: ' + res.message); }
-      }).catch(err => { btn.disabled = false; btn.innerText = 'Save Record'; alert('Network error.'); });
+      });
     }
 
     function saveTransferRecord() {
@@ -599,8 +765,6 @@
       var desig = document.getElementById('trfDesignation').value;
       if (!name || !desig) { alert('Employee Name and Designation are mandatory.'); return; }
       
-      var btn = document.getElementById('saveTrfBtn');
-      btn.disabled = true; btn.innerText = 'Saving...';
       var data = {
         EmployeeName: name, Designation: desig,
         FromUnit: document.getElementById('trfFromUnit').value,
@@ -611,13 +775,12 @@
       };
       fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'saveTransfer', data: data }) })
       .then(res => res.json()).then(res => {
-        btn.disabled = false; btn.innerText = 'Save Record';
         if (res.success) {
           bootstrap.Modal.getInstance(document.getElementById('transferModal')).hide();
           showToast('Data saved successfully!');
           loadTransfers(); loadDashboard();
         } else { alert('Error: ' + res.message); }
-      }).catch(err => { btn.disabled = false; btn.innerText = 'Save Record'; alert('Network error.'); });
+      });
     }
 
     function saveLeaveRecord() {
@@ -625,8 +788,6 @@
       var desig = document.getElementById('levDesignation').value;
       if (!name || !desig) { alert('Employee Name and Designation are mandatory.'); return; }
 
-      var btn = document.getElementById('saveLevBtn');
-      btn.disabled = true; btn.innerText = 'Saving...';
       var data = {
         EmployeeName: name, Designation: desig,
         FromDate: document.getElementById('levFromDate').value,
@@ -637,13 +798,12 @@
       };
       fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'saveLeave', data: data }) })
       .then(res => res.json()).then(res => {
-        btn.disabled = false; btn.innerText = 'Save Record';
         if (res.success) {
           bootstrap.Modal.getInstance(document.getElementById('leaveModal')).hide();
           showToast('Data saved successfully!');
           loadLeaves(); loadDashboard();
         } else { alert('Error: ' + res.message); }
-      }).catch(err => { btn.disabled = false; btn.innerText = 'Save Record'; alert('Network error.'); });
+      });
     }
 
     function saveJoiningRecord() {
@@ -651,8 +811,6 @@
       var desig = document.getElementById('jonDesignation').value;
       if (!name || !desig) { alert('Employee Name and Designation are mandatory.'); return; }
 
-      var btn = document.getElementById('saveJonBtn');
-      btn.disabled = true; btn.innerText = 'Saving...';
       var data = {
         EmployeeName: name, Designation: desig,
         Unit: document.getElementById('jonUnit').value,
@@ -662,40 +820,50 @@
       };
       fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'saveJoining', data: data }) })
       .then(res => res.json()).then(res => {
-        btn.disabled = false; btn.innerText = 'Save Record';
         if (res.success) {
           bootstrap.Modal.getInstance(document.getElementById('joiningModal')).hide();
-          showToast('Data saved successfully!');
+          showToast('Data saved successfully! Awaiting admin approval.');
           loadJoinings(); loadDashboard();
         } else { alert('Error: ' + res.message); }
-      }).catch(err => { btn.disabled = false; btn.innerText = 'Save Record'; alert('Network error.'); });
+      });
+    }
+
+    function saveNewUser() {
+      var data = {
+        Username: document.getElementById('newUsername').value,
+        Password: document.getElementById('newUserPassword').value,
+        Role: document.getElementById('newUserRole').value
+      };
+      fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'saveUser', data: data }) })
+      .then(res => res.json()).then(res => {
+        if (res.success) {
+          bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+          showToast('User added successfully!');
+          loadUsers();
+        } else { alert('Error: ' + res.message); }
+      });
     }
 
     function handlePasswordChange(e) {
       e.preventDefault();
+      var currP = document.getElementById('currPass').value;
       var newP = document.getElementById('newPass').value;
       var confP = document.getElementById('confirmPass').value;
       if (newP !== confP) { alert('New passwords do not match.'); return; }
       
-      var btn = document.getElementById('changePassBtn');
-      btn.disabled = true; btn.innerText = 'Updating...';
-      fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'changePassword' }) })
+      var username = sessionStorage.getItem('userName');
+      fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'changePassword', data: { username: username, currentPassword: currP, newPassword: newP } })
+      })
       .then(res => res.json()).then(res => {
-        btn.disabled = false; btn.innerText = 'Update Password';
         if (res.success) {
           showToast('Password updated successfully!');
           document.getElementById('currPass').value = '';
           document.getElementById('newPass').value = '';
           document.getElementById('confirmPass').value = '';
-        } else { alert('Error: ' + res.message); }
-      }).catch(err => { btn.disabled = false; btn.innerText = 'Update Password'; alert('Network error.'); });
-    }
-
-    function runSystemSetup() {
-      fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'setupSystem' }) })
-      .then(res => res.json()).then(res => {
-        showToast(res.message);
-      }).catch(err => alert('Setup failed.'));
+        } else { alert(res.message || 'Failed to update password.'); }
+      });
     }
   </script>
 </body>
